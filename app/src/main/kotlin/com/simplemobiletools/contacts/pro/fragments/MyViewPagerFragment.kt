@@ -64,6 +64,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     fragment_placeholder.text = activity.getString(R.string.no_recent_calls_found)
                     fragment_placeholder_2.text = activity.getString(R.string.request_the_required_permissions)
                 }
+                this is ShortcutsFragment -> {
+                    fragment_placeholder.text = activity.getString(R.string.no_favorites)
+                    fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
+                }
             }
         }
     }
@@ -137,7 +141,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             setupContactsFavoritesAdapter(contacts)
         }
 
-        if (this is ContactsFragment || this is FavoritesFragment) {
+        if (this is ContactsFragment || this is FavoritesFragment || this is ShortcutsFragment) {
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
         }
     }

@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.fragment_recents.*
+import kotlinx.android.synthetic.main.fragment_shortcuts.*
 import java.io.FileOutputStream
 
 
@@ -276,6 +277,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             fragments.add(groups_fragment)
         }
 
+        if (showTabs and SHORTCUTS_TAB_MASK != 0) {
+            fragments.add(shortcuts_fragment)
+        }
+
         return fragments[viewpager.currentItem]
     }
 
@@ -393,6 +398,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             LOCATION_CONTACTS_TAB -> R.drawable.ic_person
             LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
             LOCATION_RECENTS_TAB -> R.drawable.ic_clock
+            LOCATION_SHORTCUTS_TAB -> R.drawable.ic_star_off
             else -> R.drawable.ic_group
         }
 
@@ -532,6 +538,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 recents_fragment?.refreshContacts(contacts)
             }
 
+            if (refreshTabsMask and SHORTCUTS_TAB_MASK != 0) {
+                shortcuts_fragment?.refreshContacts(contacts)
+            }
+
             if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
                 if (refreshTabsMask == GROUPS_TAB_MASK) {
                     groups_fragment.skipHashComparing = true
@@ -557,7 +567,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, recents_fragment, groups_fragment)
+    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, recents_fragment, groups_fragment, shortcuts_fragment)
 
     private fun getRecentsTabIndex(): Int {
         var index = 0

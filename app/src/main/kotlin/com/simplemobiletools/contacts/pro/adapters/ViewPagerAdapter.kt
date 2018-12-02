@@ -50,6 +50,10 @@ class ViewPagerAdapter(val activity: MainActivity) : PagerAdapter() {
             fragments.add(R.layout.fragment_groups)
         }
 
+        if (showTabs and SHORTCUTS_TAB_MASK != 0) {
+            fragments.add(R.layout.fragment_shortcuts)
+        }
+
         return fragments[position]
     }
 }
